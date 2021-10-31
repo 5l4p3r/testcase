@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useContext } from 'react'
 import { UserContext } from '../hooks/UserContext'
-import { Container, Navbar, NavDropdown } from 'react-bootstrap'
+import { Container, Navbar, NavDropdown, NavItem } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 
@@ -21,9 +21,9 @@ const Nav = () => {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <div className="me-auto">
-                            <NavLink to="/customer" className="nav-link text-light">Customer</NavLink>
-                        </div>
+                        <NavLink to="/customer" className="nav-link text-light">Customer</NavLink>
+                        <NavLink to="/item" className="nav-link text-light">Item</NavLink>
+                        <div className="me-auto"></div>
                         <div className="ml-auto">
                             <NavDropdown title={item.name} id="basic-nav-dropdown">
                                 <NavDropdown.Item onClick={()=>{

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,7 @@ Route::group(['middleware' => ['admin']],function(){
     Route::get('/customer', function(){
         return view('admin');
     })->where('path','/customer');
+    Route::get('/item',function(){
+        return view('admin');
+    })->where('path','/item');
 });
