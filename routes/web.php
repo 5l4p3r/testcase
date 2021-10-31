@@ -32,4 +32,7 @@ Route::group(['middleware' => ['admin']],function(){
     Route::get('/item',function(){
         return view('admin');
     })->where('path','/item');
+    Route::get('/order',function(){
+        return view('admin');
+    })->where('path','/order');
 });

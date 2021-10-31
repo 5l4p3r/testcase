@@ -9,7 +9,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        return Item::all();
+        return Item::orderBy('code','ASC')->get();
     }
     public function post(Request $request)
     {

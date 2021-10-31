@@ -23,6 +23,7 @@ const Nav = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <NavLink to="/customer" className="nav-link text-light">Customer</NavLink>
                         <NavLink to="/item" className="nav-link text-light">Item</NavLink>
+                        <NavLink to="/order" className="nav-link text-light">Order</NavLink>
                         <div className="me-auto"></div>
                         <div className="ml-auto">
                             <NavDropdown title={item.name} id="basic-nav-dropdown">

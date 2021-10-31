@@ -7,6 +7,7 @@ import { UserContext } from './hooks/UserContext'
 import axios from 'axios'
 import Customer from './pages/Customer'
 import Item from './pages/Item'
+import Order from './pages/Order'
 
 const Ezb = () => {
     const [user, setUser] = useState([])
@@ -32,6 +33,7 @@ const Ezb = () => {
                         <Route exact path="/home" component={Home}/>
                         <Route path="/customer" component={Customer}/>
                         <Route path="/item" component={Item}/>
+                        <Route path="/order" component={Order}/>
                     </Switch>
                 </div>
             </BrowserRouter>

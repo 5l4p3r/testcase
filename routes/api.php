@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,8 @@ Route::get('/item',[ItemController::class,'index']);
 Route::post('/item',[ItemController::class,'post']);
 Route::put('/item',[ItemController::class,'put']);
 Route::delete('/item/{id}',[ItemController::class,'delete']);
+
+Route::get('/order',[OrderController::class,'index']);
+Route::post('/order',[OrderController::class,'post']);
+Route::put('/order',[OrderController::class,'put']);
+Route::delete('/order/{id}',[OrderController::class,'delete']);

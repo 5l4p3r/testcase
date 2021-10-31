@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Customer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,13 +16,13 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreign('code_item');
+            $table->string('code_customer');
             $table->string('date');
-            $table->foreign('code_customer');
+            $table->string('code_item');
             $table->string('city');
             $table->bigInteger('qty');
-            $table->bigInteger('price');
             $table->bigInteger('discount');
+            $table->bigInteger('price');
             $table->bigInteger('total');
             $table->timestamps();
         });

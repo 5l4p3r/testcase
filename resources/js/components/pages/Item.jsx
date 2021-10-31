@@ -83,15 +83,46 @@ const Item = () => {
         getItem();
     },[])
     return (
-        <Container>            
-            <Stack gap={3} direction="horizontal">
-                <h1>Data Master Item</h1>
+        <Container>
+            <h1>Data Master Item</h1>
+            <Stack gap={2} direction="horizontal">
                 <Button variant="secondary" onClick={()=>setAdd(true)}>Add Item</Button>
                 <div className="ms-auto">
                     <Form.Control placeholder="Search..."/>
                 </div>
             </Stack> <br />
-
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th style={{width:50}}>No</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th style={{width:145}}>Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {item.map((l,i)=>(
+                        <tr key={i}>
+                            <td>{i+1}</td>
+                            <td>{l.code}</td>
+                            <td>{l.name}</td>
+                            <td>
+                                <Button variant="success" onClick={()=>{
+                                    setId(l.id)
+                                    setCode(l.code)
+                                    setName(l.name)
+                                    setEdit(true)
+                                }}>Edit</Button> &nbsp;
+                                <Button variant="danger" onClick={()=>{
+                                    setId(l.id)
+                                    setName(l.name)
+                                    setDel(true)
+                                }}>Delete</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
             {/* Add */}
             <Modal show={add} onHide={()=>{
                 clearForm();
@@ -156,39 +187,6 @@ const Item = () => {
                     }}>No</Button>
                 </Modal.Footer>
             </Modal>
-
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th style={{width:50}}>No</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th style={{width:145}}>Option</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {item.map((l,i)=>(
-                        <tr key={i}>
-                            <td>{i+1}</td>
-                            <td>{l.code}</td>
-                            <td>{l.name}</td>
-                            <td>
-                                <Button variant="success" onClick={()=>{
-                                    setId(l.id)
-                                    setCode(l.code)
-                                    setName(l.name)
-                                    setEdit(true)
-                                }}>Edit</Button> &nbsp;
-                                <Button variant="danger" onClick={()=>{
-                                    setId(l.id)
-                                    setName(l.name)
-                                    setDel(true)
-                                }}>Delete</Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
         </Container>
     )
 }

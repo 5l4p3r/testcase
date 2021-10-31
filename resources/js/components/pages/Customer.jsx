@@ -84,8 +84,8 @@ const Customer = () => {
     },[])
     return (
         <Container>
-            <Stack gap={3} direction="horizontal">
-                <h1>Data Master Customer</h1> &nbsp;
+            <h1>Data Master Customer</h1>
+            <Stack gap={2} direction="horizontal">
                 <Button variant="secondary" onClick={()=>setAdd(true)}>Add Customer</Button>
                 <div className="ms-auto">
                     <Form.Control placeholder="Seacrh..." onChange={(e)=>setSearch(e.target.value)}/>
