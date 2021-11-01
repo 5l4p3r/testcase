@@ -17,6 +17,7 @@ class OrderController extends Controller
     {
         return Order::create([
             'code_customer' => $request->code_customer,
+            'order' => $request->order,
             'date' => Carbon::parse($request->date)->translatedFormat('l, d F Y'),
             'code_item' => $request->code_item,
             'city' => $request->city,

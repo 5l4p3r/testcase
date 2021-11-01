@@ -4,6 +4,7 @@ import { Container, Stack, Button, Form, Modal, Table } from 'react-bootstrap'
 
 const Order = () => {
     const [add, setAdd] = useState(false)
+    const [order, setOrder] = useState(null)
     const [codecustomer, setCodecustomer] = useState(null)
     const [customername, setCustomername] = useState('')
     const [codeitem, setCodeitem] = useState(null)
@@ -15,7 +16,7 @@ const Order = () => {
     const [total, setTotal] = useState(0)
     const [customer, setCustomer] = useState([])
     const [item, setItem] = useState([])
-    const [order, setOrder] = useState([])
+    const [orders, setOrders] = useState([])
 
     const getCustomer = async() => {
         try {
@@ -30,6 +31,7 @@ const Order = () => {
         try {
             const fdata = {
                 code_customer: codecustomer,
+                order: order,
                 date: date,
                 code_item: codeitem,
                 city: city,
@@ -51,7 +53,7 @@ const Order = () => {
     const getOrder = async() => {
         try {
             let res = await axios.get('/api/order')
-            setOrder(res.data)
+            setOrders(res.data)
         } catch (error) {
             console.log(error.message);
         }
@@ -74,6 +76,7 @@ const Order = () => {
 
     const clearForm = () => {
         setAdd(false)
+        setOrder(null)
         setCodecustomer(null)
         setCustomername('')
         setCodeitem(null)
@@ -92,7 +95,7 @@ const Order = () => {
                 <div className="ms-auto">
                     <Form.Control placeholder="Search.."/>
                 </div>
-            </Stack>
+            </Stack><br />
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -106,7 +109,7 @@ const Order = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {order.map((ol,i)=>(
+                    {orders.map((ol,i)=>(
                         <tr key={i}>
                             <td>{i+1}</td>
                             <td>{ol.code_customer}</td>
@@ -151,6 +154,10 @@ const Order = () => {
                     <Form.Group>
                         <Form.Label>City</Form.Label>
                         <Form.Control value={city} disabled/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Order To</Form.Label>
+                        <Form.Control placeholder="Order To.." type="number" onChange={(e)=>setOrder(e.target.value)}/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Date</Form.Label>

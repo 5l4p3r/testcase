@@ -8,6 +8,7 @@ import axios from 'axios'
 import Customer from './pages/Customer'
 import Item from './pages/Item'
 import Order from './pages/Order'
+import Report from './pages/Report'
 
 const Ezb = () => {
     const [user, setUser] = useState([])
@@ -34,6 +35,7 @@ const Ezb = () => {
                         <Route path="/customer" component={Customer}/>
                         <Route path="/item" component={Item}/>
                         <Route path="/order" component={Order}/>
+                        <Route path="/report" component={Report}/>
                     </Switch>
                 </div>
             </BrowserRouter>
