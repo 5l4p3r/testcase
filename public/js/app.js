@@ -9554,78 +9554,68 @@ var Order = function Order() {
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
-      order = _useState10[0],
-      setOrder = _useState10[1];
+      codecustomer = _useState10[0],
+      setCodecustomer = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState12 = _slicedToArray(_useState11, 2),
-      codecustomer = _useState12[0],
-      setCodecustomer = _useState12[1];
+      customername = _useState12[0],
+      setCustomername = _useState12[1];
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
       _useState14 = _slicedToArray(_useState13, 2),
-      customername = _useState14[0],
-      setCustomername = _useState14[1];
+      codeitem = _useState14[0],
+      setCodeitem = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState16 = _slicedToArray(_useState15, 2),
-      codeitem = _useState16[0],
-      setCodeitem = _useState16[1];
+      nameitem = _useState16[0],
+      setNameitem = _useState16[1];
 
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState18 = _slicedToArray(_useState17, 2),
-      nameitem = _useState18[0],
-      setNameitem = _useState18[1];
+      city = _useState18[0],
+      setCity = _useState18[1];
 
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState20 = _slicedToArray(_useState19, 2),
-      city = _useState20[0],
-      setCity = _useState20[1];
+      date = _useState20[0],
+      setDate = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
       _useState22 = _slicedToArray(_useState21, 2),
-      date = _useState22[0],
-      setDate = _useState22[1];
+      qty = _useState22[0],
+      setQty = _useState22[1];
 
   var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
       _useState24 = _slicedToArray(_useState23, 2),
-      qty = _useState24[0],
-      setQty = _useState24[1];
+      price = _useState24[0],
+      setPrice = _useState24[1];
 
   var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
       _useState26 = _slicedToArray(_useState25, 2),
-      price = _useState26[0],
-      setPrice = _useState26[1];
+      discount = _useState26[0],
+      setDiscount = _useState26[1];
 
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
       _useState28 = _slicedToArray(_useState27, 2),
-      discount = _useState28[0],
-      setDiscount = _useState28[1];
+      customer = _useState28[0],
+      setCustomer = _useState28[1];
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
       _useState30 = _slicedToArray(_useState29, 2),
-      total = _useState30[0],
-      setTotal = _useState30[1];
+      item = _useState30[0],
+      setItem = _useState30[1];
 
   var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
       _useState32 = _slicedToArray(_useState31, 2),
-      customer = _useState32[0],
-      setCustomer = _useState32[1];
+      orders = _useState32[0],
+      setOrders = _useState32[1];
 
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
       _useState34 = _slicedToArray(_useState33, 2),
-      item = _useState34[0],
-      setItem = _useState34[1];
-
-  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-      _useState36 = _slicedToArray(_useState35, 2),
-      orders = _useState36[0],
-      setOrders = _useState36[1];
-
-  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(''),
-      _useState38 = _slicedToArray(_useState37, 2),
-      search = _useState38[0],
-      setSearch = _useState38[1];
+      search = _useState34[0],
+      setSearch = _useState34[1];
 
   var getCustomer = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -9685,7 +9675,6 @@ var Order = function Order() {
     try {
       var fdata = {
         code_customer: codecustomer,
-        order: order,
         date: date,
         code_item: codeitem,
         city: city,
@@ -9774,6 +9763,19 @@ var Order = function Order() {
     };
   }();
 
+  var deleteOrder = function deleteOrder() {
+    try {
+      axios__WEBPACK_IMPORTED_MODULE_1___default()["delete"]("/api/order/".concat(id)).then(function (res) {
+        if (res.status === 200) {
+          clearForm();
+          getOrder();
+        }
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   var filtered = function filtered(all) {
     return all.customername.toUpperCase().indexOf(search.toLocaleUpperCase()) > -1;
   };
@@ -9789,7 +9791,6 @@ var Order = function Order() {
     setAdd(false);
     setEdit(false);
     setDel(false);
-    setOrder(null);
     setCodecustomer(null);
     setCustomername('');
     setCodeitem(null);
@@ -9855,7 +9856,7 @@ var Order = function Order() {
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
-        children: orders.map(function (ol, i) {
+        children: orders.filter(filtered).map(function (ol, i) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               children: i + 1
@@ -9890,6 +9891,10 @@ var Order = function Order() {
                 children: "Edit"
               }), " \xA0", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
                 variant: "danger",
+                onClick: function onClick() {
+                  setId(ol.id);
+                  setDel(true);
+                },
                 children: "Delete"
               })]
             })]
@@ -9936,16 +9941,6 @@ var Order = function Order() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Control, {
             value: city,
             disabled: true
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Group, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Label, {
-            children: "Order To"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Control, {
-            placeholder: "Order To..",
-            type: "number",
-            onChange: function onChange(e) {
-              return setOrder(e.target.value);
-            }
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Group, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Label, {
@@ -10003,6 +9998,7 @@ var Order = function Order() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Control, {
             type: "number",
             placeholder: "Discount",
+            defaultValue: discount,
             onChange: function onChange(e) {
               return setDiscount(e.target.value);
             }
@@ -10049,7 +10045,7 @@ var Order = function Order() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Label, {
             children: "Customer Name"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Control, {
-            value: nameitem,
+            value: customername,
             disabled: true
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Group, {
@@ -10093,7 +10089,7 @@ var Order = function Order() {
             defaultValue: discount,
             type: "number",
             onChange: function onChange(e) {
-              return setPrice(e.target.value);
+              return setDiscount(e.target.value);
             }
           })]
         })]
@@ -10106,6 +10102,29 @@ var Order = function Order() {
           variant: "danger",
           onClick: clearForm,
           children: "Cancel"
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      show: del,
+      onHide: clearForm,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Header, {
+        closeButton: true,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Title, {
+          children: "Delete Order"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Body, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+          children: "Are you sure delete this order?"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"].Footer, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          variant: "warning",
+          onClick: deleteOrder,
+          children: "Yes"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          variant: "secondary",
+          onClick: clearForm,
+          children: "No"
         })]
       })]
     })]
@@ -91536,7 +91555,7 @@ function dequal(foo, bar) {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/","#USER"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\laragon\\\\www\\\\testcase","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"Promise based HTTP client for the browser and node.js","main":"index.js","scripts":{"test":"grunt test","start":"node ./sandbox/server.js","build":"NODE_ENV=production grunt build","preversion":"npm test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json","postversion":"git push && git push --tags","examples":"node ./examples/server.js","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","fix":"eslint --fix lib/**/*.js"},"repository":{"type":"git","url":"https://github.com/axios/axios.git"},"keywords":["xhr","http","ajax","promise","node"],"author":"Matt Zabriskie","license":"MIT","bugs":{"url":"https://github.com/axios/axios/issues"},"homepage":"https://axios-http.com","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"jsdelivr":"dist/axios.min.js","unpkg":"dist/axios.min.js","typings":"./index.d.ts","dependencies":{"follow-redirects":"^1.14.0"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}]}');
 
 /***/ }),
 

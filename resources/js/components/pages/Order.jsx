@@ -7,9 +7,6 @@ const Order = () => {
     const [edit, setEdit] = useState(false)
     const [del, setDel] = useState(false)
     const [id, setId] = useState(0)
-
-    const [order, setOrder] = useState(null)
-
     const [codecustomer, setCodecustomer] = useState(null)
     const [customername, setCustomername] = useState('')
     const [codeitem, setCodeitem] = useState(null)
@@ -19,7 +16,6 @@ const Order = () => {
     const [qty, setQty] = useState(0)
     const [price, setPrice] = useState(0)
     const [discount, setDiscount] = useState(0)
-    const [total, setTotal] = useState(0)
     const [customer, setCustomer] = useState([])
     const [item, setItem] = useState([])
     const [orders, setOrders] = useState([])
@@ -58,7 +54,6 @@ const Order = () => {
         try {
             const fdata = {
                 code_customer: codecustomer,
-                order: order,
                 date: date,
                 code_item: codeitem,
                 city: city,
@@ -95,6 +90,19 @@ const Order = () => {
         }
     }
 
+    const deleteOrder = () => {
+        try {
+            axios.delete(`/api/order/${id}`).then((res)=>{
+                if(res.status === 200){
+                    clearForm();
+                    getOrder();
+                }
+            })
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     const filtered = (all) => {
         return all.customername.toUpperCase().indexOf(search.toLocaleUpperCase()) > -1
     }
@@ -110,7 +118,6 @@ const Order = () => {
         setAdd(false)
         setEdit(false)
         setDel(false)
-        setOrder(null)
         setCodecustomer(null)
         setCustomername('')
         setCodeitem(null)
@@ -145,7 +152,7 @@ const Order = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {orders.map((ol,i)=>(
+                    {orders.filter(filtered).map((ol,i)=>(
                         <tr key={i}>
                             <td>{i+1}</td>
                             <td>{ol.codecustomer}</td>
@@ -167,7 +174,10 @@ const Order = () => {
                                     setNameitem(ol.itemname)
                                     setDiscount(ol.discount)
                                 }}>Edit</Button> &nbsp;
-                                <Button variant="danger">Delete</Button>
+                                <Button variant="danger" onClick={()=>{
+                                    setId(ol.id)
+                                    setDel(true)
+                                }}>Delete</Button>
                             </td>
                         </tr>
                     ))}
@@ -204,10 +214,6 @@ const Order = () => {
                         <Form.Control value={city} disabled/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Order To</Form.Label>
-                        <Form.Control placeholder="Order To.." type="number" onChange={(e)=>setOrder(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group>
                         <Form.Label>Date</Form.Label>
                         <Form.Control type="date" onChange={(e)=>setDate(e.target.value)}/>
                     </Form.Group>
@@ -236,7 +242,7 @@ const Order = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Discount</Form.Label>
-                        <Form.Control type="number" placeholder="Discount" onChange={(e)=>setDiscount(e.target.value)}/>
+                        <Form.Control type="number" placeholder="Discount" defaultValue={discount} onChange={(e)=>setDiscount(e.target.value)}/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Total</Form.Label>
@@ -263,7 +269,7 @@ const Order = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Customer Name</Form.Label>
-                        <Form.Control value={nameitem} disabled/>
+                        <Form.Control value={customername} disabled/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>City</Form.Label>
@@ -283,12 +289,26 @@ const Order = () => {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Discount</Form.Label>
-                        <Form.Control defaultValue={discount} type="number" onChange={(e)=>setPrice(e.target.value)}/>
+                        <Form.Control defaultValue={discount} type="number" onChange={(e)=>setDiscount(e.target.value)}/>
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="success" onClick={editOrder}>Save</Button>
                     <Button variant="danger" onClick={clearForm}>Cancel</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Del */}
+            <Modal show={del} onHide={clearForm}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete Order</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h4>Are you sure delete this order?</h4>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="warning" onClick={deleteOrder}>Yes</Button>
+                    <Button variant="secondary" onClick={clearForm}>No</Button>
                 </Modal.Footer>
             </Modal>
         </Container>

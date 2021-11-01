@@ -33,7 +33,6 @@ class OrderController extends Controller
     {
         return Order::create([
             'code_customer' => $request->code_customer,
-            'order' => $request->order,
             'date' => Carbon::parse($request->date)->translatedFormat('l, d F Y'),
             'code_item' => $request->code_item,
             'city' => $request->city,
@@ -52,5 +51,10 @@ class OrderController extends Controller
             'discount' => $request->discount,
             'total' => ($request->qty * $request->price) - $request->discount,
         ]);
+    }
+
+    public function delete($id)
+    {
+        return Order::where('id',$id)->delete();
     }
 }
