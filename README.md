@@ -1,11 +1,11 @@
-## cp .env.example .env
+# cp .env.example .env
 
-## composer update
-## php artisan key:generate
+# composer update
+# php artisan key:generate
 
-## php artisan migrate
-## php artisan migrate:fresh --seed
+# php artisan migrate
+# php artisan migrate:fresh --seed
 
-## npm install
+# npm install
 
-## npm run dev
+# npm run dev
