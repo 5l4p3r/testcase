@@ -79,6 +79,10 @@ const Item = () => {
         }
     }
 
+    const filtered = (all) => {
+        return all.name.toUpperCase().indexOf(search.toLocaleUpperCase()) > -1
+    }
+
     useEffect(()=>{
         getItem();
     },[])
@@ -88,7 +92,7 @@ const Item = () => {
             <Stack gap={2} direction="horizontal">
                 <Button variant="secondary" onClick={()=>setAdd(true)}>Add Item</Button>
                 <div className="ms-auto">
-                    <Form.Control placeholder="Search..."/>
+                    <Form.Control placeholder="Search..." onChange={(e)=>setSearch(e.target.value)}/>
                 </div>
             </Stack> <br />
             <Table striped bordered hover>
@@ -101,7 +105,7 @@ const Item = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {item.map((l,i)=>(
+                    {item.filter(filtered).map((l,i)=>(
                         <tr key={i}>
                             <td>{i+1}</td>
                             <td>{l.code}</td>

@@ -1,8 +1,9 @@
 import axios from 'axios'
 import React, { useContext } from 'react'
 import { UserContext } from '../hooks/UserContext'
-import { Container, Navbar, NavDropdown, NavItem } from 'react-bootstrap'
+import { Container, Navbar, NavDropdown } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
+import { useHistory } from 'react-router'
 
 
 const Nav = () => {
@@ -12,6 +13,7 @@ const Nav = () => {
             window.location.href="/"
         })
     }
+    const history = useHistory()
     return (
         <Navbar bg="dark" variant="dark" expand="lg">
             {user.map((item,i)=>(
@@ -24,10 +26,20 @@ const Nav = () => {
                         <NavLink to="/customer" className="nav-link text-light">Customer</NavLink>
                         <NavLink to="/item" className="nav-link text-light">Item</NavLink>
                         <NavLink to="/order" className="nav-link text-light">Order</NavLink>
-                        <NavLink to="/report" className="nav-link text-light">Report</NavLink>
+                        <NavDropdown title="Report" color="white">
+                            <NavDropdown.Item onClick={()=>{
+                                history.push('/summary/qty')
+                            }}>Summary Report Order Qty</NavDropdown.Item>
+                            <NavDropdown.Item onClick={()=>{
+                                history.push('/summary/date')
+                            }}>Summary Report Order per date</NavDropdown.Item>
+                            <NavDropdown.Item onClick={()=>{
+                                history.push('/summary/item')
+                            }}>Summary Report Order per Item</NavDropdown.Item>
+                        </NavDropdown>
                         <div className="me-auto"></div>
                         <div className="ml-auto">
-                            <NavDropdown title={item.name} id="basic-nav-dropdown">
+                            <NavDropdown title={item.name} id="basic-nav-dropdown" className="text-light">
                                 <NavDropdown.Item onClick={()=>{
                                     logout()
                                 }}>Logout</NavDropdown.Item>

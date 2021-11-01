@@ -4,10 +4,16 @@ import { Container, Stack, Button, Form, Modal, Table } from 'react-bootstrap'
 
 const Order = () => {
     const [add, setAdd] = useState(false)
+    const [edit, setEdit] = useState(false)
+    const [del, setDel] = useState(false)
+    const [id, setId] = useState(0)
+
     const [order, setOrder] = useState(null)
+
     const [codecustomer, setCodecustomer] = useState(null)
     const [customername, setCustomername] = useState('')
     const [codeitem, setCodeitem] = useState(null)
+    const [nameitem, setNameitem] = useState('')
     const [city, setCity] = useState('')
     const [date, setDate] = useState('')
     const [qty, setQty] = useState(0)
@@ -17,11 +23,32 @@ const Order = () => {
     const [customer, setCustomer] = useState([])
     const [item, setItem] = useState([])
     const [orders, setOrders] = useState([])
+    const [search, setSearch] = useState('')
 
     const getCustomer = async() => {
         try {
             let res = await axios.get('/api/customer')
             setCustomer(res.data)
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const editOrder = () => {
+        try {
+            const fdata = {
+                id: id,
+                qty: qty,
+                price: price,
+                discount: discount,
+            }
+
+            axios.put('/api/order',fdata).then((res)=>{
+                if(res.status === 200){
+                    clearForm();
+                    getOrder();
+                }
+            })
         } catch (error) {
             console.log(error.message);
         }
@@ -68,23 +95,30 @@ const Order = () => {
         }
     }
 
+    const filtered = (all) => {
+        return all.customername.toUpperCase().indexOf(search.toLocaleUpperCase()) > -1
+    }
+
     useEffect(()=>{
+        getOrder();
         getCustomer();
         getItem();
-        getOrder();
     },[])
 
     const clearForm = () => {
+        setId(0)
         setAdd(false)
+        setEdit(false)
+        setDel(false)
         setOrder(null)
         setCodecustomer(null)
         setCustomername('')
         setCodeitem(null)
+        setNameitem('')
         setCity('')
         setDate('')
         setQty(0)
         setPrice(0)
-        setDiscount(0)
         setDiscount(0)
     }
     return (
@@ -93,7 +127,7 @@ const Order = () => {
             <Stack gap={2} direction="horizontal">
                 <Button variant="secondary" onClick={()=>setAdd(true)}>Add Order</Button>
                 <div className="ms-auto">
-                    <Form.Control placeholder="Search.."/>
+                    <Form.Control placeholder="Search.." onChange={(e)=>setSearch(e.target.value)}/>
                 </div>
             </Stack><br />
             <Table striped bordered hover>
@@ -101,25 +135,39 @@ const Order = () => {
                     <tr>
                         <th style={{width:50}}>No</th>
                         <th>Customer Code</th>
+                        <th>Customer Name</th>
                         <th>Item Code</th>
+                        <th>Item Name</th>
                         <th>QTY</th>
                         <th>Price</th>
                         <th>Total</th>
-                        <th>Option</th>
+                        <th style={{width:145}}>Option</th>
                     </tr>
                 </thead>
                 <tbody>
                     {orders.map((ol,i)=>(
                         <tr key={i}>
                             <td>{i+1}</td>
-                            <td>{ol.code_customer}</td>
-                            <td>{ol.code_item}</td>
+                            <td>{ol.codecustomer}</td>
+                            <td>{ol.customername}</td>
+                            <td>{ol.itemcode}</td>
+                            <td>{ol.itemname}</td>
                             <td>{ol.qty}</td>
                             <td>{ol.price}</td>
                             <td>{ol.qty * ol.price}</td>
                             <td>
-                                <Button variant="secondary">Edit</Button> &nbsp;
-                                <Button varian="danger">Delete</Button>
+                                <Button variant="success" onClick={()=>{
+                                    setEdit(true)
+                                    setId(ol.id)
+                                    setCustomername(ol.customername)
+                                    setCity(ol.city)
+                                    setDate(ol.date)
+                                    setQty(ol.qty)
+                                    setPrice(ol.price)
+                                    setNameitem(ol.itemname)
+                                    setDiscount(ol.discount)
+                                }}>Edit</Button> &nbsp;
+                                <Button variant="danger">Delete</Button>
                             </td>
                         </tr>
                     ))}
@@ -197,6 +245,49 @@ const Order = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={addOrder}>Save</Button>
+                    <Button variant="danger" onClick={clearForm}>Cancel</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Edit */}
+            <Modal show={edit} onHide={()=>{
+                clearForm();
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Order</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group>
+                        <Form.Label>Date</Form.Label>
+                        <Form.Control value={date} disabled/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Customer Name</Form.Label>
+                        <Form.Control value={nameitem} disabled/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>City</Form.Label>
+                        <Form.Control value={city} disabled/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Item Name</Form.Label>
+                        <Form.Control value={nameitem} disabled/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>QTY</Form.Label>
+                        <Form.Control defaultValue={qty} type="number" onChange={(e)=>setQty(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Price</Form.Label>
+                        <Form.Control defaultValue={price} type="number" onChange={(e)=>setPrice(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Discount</Form.Label>
+                        <Form.Control defaultValue={discount} type="number" onChange={(e)=>setPrice(e.target.value)}/>
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="success" onClick={editOrder}>Save</Button>
                     <Button variant="danger" onClick={clearForm}>Cancel</Button>
                 </Modal.Footer>
             </Modal>

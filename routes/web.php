@@ -35,4 +35,13 @@ Route::group(['middleware' => ['admin']],function(){
     Route::get('/order',function(){
         return view('admin');
     })->where('path','/order');
+    Route::get('/summary/qty',function(){
+        return view('admin');
+    })->where('path','/summary/qty');
+    Route::get('/summary/date',function(){
+        return view('admin');
+    })->where('path','/summary/date');
+    Route::get('/summary/item',function(){
+        return view('admin');
+    })->where('path','/summary/item');
 });
