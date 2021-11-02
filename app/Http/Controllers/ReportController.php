@@ -10,16 +10,11 @@ class ReportController extends Controller
 {
     public function qty()
     {
-        // return DB::table('orders')
-        // ->groupBy('orders.date','orders.order','code_customer')
-        // ->join('customers','customers.code','=','orders.code_customer')
-        // ->select(DB::raw('orders.date, orders.code_customer,customers.name, sum(qty) as qty, sum(qty * price) as subtotal, sum(discount) as discount, sum(qty * price - discount) as total'))
-        // ->get();
-
         return DB::table('orders')
-        ->groupBy('orders.code_customer','customers.code','orders.discount','orders.date')
+        ->groupBy('orders.date','orders.code_customer','customers.code','orders.discount')
         ->join('customers','customers.code','=','orders.code_customer')
         ->select(DB::raw('orders.date, orders.code_customer,customers.name, sum(qty) as qty, sum(qty * price) as subtotal, sum(discount) as discount, sum(qty * price - discount) as total'))
+        ->orderBy('qty')
         ->get();
     }
     public function date()
@@ -28,7 +23,7 @@ class ReportController extends Controller
         ->groupBy( 'date','code_customer')
         ->join('customers', 'customers.code','=', 'orders.code_customer')
         ->select(DB::raw("code, name, sum(qty) as qty, date, sum(qty * price - discount) as total"))
-        ->orderBy('qty')
+        ->orderByRaw('date')
         ->get();
     }
     public function item()
@@ -39,5 +34,6 @@ class ReportController extends Controller
         ->select(DB::raw('orders.code_item, items.name, sum(qty) as qty, avg(price) as avg, sum(qty * price ) as total'))
         ->orderBy('code','ASC')
         ->get();
+        // Change
     }
 }

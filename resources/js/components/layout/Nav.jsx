@@ -26,7 +26,7 @@ const Nav = () => {
                         <NavLink to="/customer" className="nav-link text-light">Customer</NavLink>
                         <NavLink to="/item" className="nav-link text-light">Item</NavLink>
                         <NavLink to="/order" className="nav-link text-light">Order</NavLink>
-                        <NavDropdown title="Report" color="white">
+                        <NavDropdown title="Report">
                             <NavDropdown.Item onClick={()=>{
                                 history.push('/summary/qty')
                             }}>Summary Report Order Qty</NavDropdown.Item>
@@ -39,7 +39,7 @@ const Nav = () => {
                         </NavDropdown>
                         <div className="me-auto"></div>
                         <div className="ml-auto">
-                            <NavDropdown title={item.name} id="basic-nav-dropdown" className="text-light">
+                            <NavDropdown title={item.name} id="basic-nav-dropdown">
                                 <NavDropdown.Item onClick={()=>{
                                     logout()
                                 }}>Logout</NavDropdown.Item>

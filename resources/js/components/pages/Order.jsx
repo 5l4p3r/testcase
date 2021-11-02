@@ -307,7 +307,7 @@ const Order = () => {
                     <h4>Are you sure delete this order?</h4>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="warning" onClick={deleteOrder}>Yes</Button>
+                    <Button variant="primary" onClick={deleteOrder}>Yes</Button>
                     <Button variant="secondary" onClick={clearForm}>No</Button>
                 </Modal.Footer>
             </Modal>
