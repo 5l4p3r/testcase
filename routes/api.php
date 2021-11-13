@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+// INDEX
 Route::get('/customer',[CustomerController::class,'index']);
 Route::post('/customer',[CustomerController::class,'post']);
 Route::put('/customer',[CustomerController::class,'put']);
